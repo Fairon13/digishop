@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BonusCardsView</class>
+ <widget class="QWidget" name="BonusCardsView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>955</width>
+    <height>549</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="butAdd">
+       <property name="text">
+        <string>add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butDel">
+       <property name="text">
+        <string>del</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Filter:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butClear">
+       <property name="text">
+        <string>clr</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="filter"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeWidget" name="view">
+     <column>
+      <property name="text">
+       <string notr="true">#</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Code</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Bonuses</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Surname</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Patronymic</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Sex</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Birthday</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Emmition</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Expiration</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>filter</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>BonusCardsView</receiver>
+   <slot>onChange(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>447</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>370</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butClear</sender>
+   <signal>clicked()</signal>
+   <receiver>filter</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butAdd</sender>
+   <signal>clicked()</signal>
+   <receiver>BonusCardsView</receiver>
+   <slot>onAdd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butDel</sender>
+   <signal>clicked()</signal>
+   <receiver>BonusCardsView</receiver>
+   <slot>onDel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>view</sender>
+   <signal>itemDoubleClicked(QTreeWidgetItem*,int)</signal>
+   <receiver>BonusCardsView</receiver>
+   <slot>onEdit(QTreeWidgetItem*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>477</x>
+     <y>290</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onAdd()</slot>
+  <slot>onDel()</slot>
+  <slot>onChange(QString)</slot>
+  <slot>onEdit(QTreeWidgetItem*,int)</slot>
+ </slots>
+</ui>

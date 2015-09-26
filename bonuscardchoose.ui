@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BonusCardChoose</class>
+ <widget class="QDialog" name="BonusCardChoose">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>729</width>
+    <height>367</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Choose bonus card</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="BonusCardsView" name="view" native="true"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BonusCardsView</class>
+   <extends>QWidget</extends>
+   <header>bonuscardsview.h</header>
+   <container>1</container>
+   <slots>
+    <signal>ChoosedCard(ShopBonusCard*)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>view</sender>
+   <signal>ChoosedCard(ShopBonusCard*)</signal>
+   <receiver>BonusCardChoose</receiver>
+   <slot>onChoose(ShopBonusCard*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>364</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>364</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onChoose(ShopBonusCard*)</slot>
+ </slots>
+</ui>

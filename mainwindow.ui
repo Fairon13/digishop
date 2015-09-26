@@ -25,9 +25,14 @@
         <string>Selling</string>
        </attribute>
       </widget>
-      <widget class="TakeInView" name="takeView">
+      <widget class="SkladView" name="takeView">
        <attribute name="title">
-        <string>Take in</string>
+        <string>Stock</string>
+       </attribute>
+      </widget>
+      <widget class="BonusCardsView" name="BonusView">
+       <attribute name="title">
+        <string>Bonus</string>
        </attribute>
       </widget>
      </widget>
@@ -40,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>971</width>
-     <height>28</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -80,9 +85,18 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>TakeInView</class>
+   <class>BonusCardsView</class>
    <extends>QWidget</extends>
-   <header>takeinview.h</header>
+   <header>bonuscardsview.h</header>
+   <container>1</container>
+   <slots>
+    <signal>ChoosedCard(ShopBonusCard*)</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>SkladView</class>
+   <extends>QWidget</extends>
+   <header>skladview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

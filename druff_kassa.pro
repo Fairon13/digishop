@@ -18,17 +18,26 @@ SOURCES += main.cpp\
     logindialog.cpp \
     sellingview.cpp \
     skladview.cpp \
-    takeinview.cpp
+    bonuscardsview.cpp \
+    bonuscarddialog.cpp \
+    sellerdialog.cpp \
+    bonuscardchoose.cpp
 
 HEADERS  += mainwindow.h \
     shopstate.h \
     logindialog.h \
     sellingview.h \
     skladview.h \
-    takeinview.h
+    bonuscardsview.h \
+    bonuscarddialog.h \
+    sellerdialog.h \
+    bonuscardchoose.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
     sellingview.ui \
     skladview.ui \
-    takeinview.ui
+    bonuscardsview.ui \
+    bonuscarddialog.ui \
+    sellerdialog.ui \
+    bonuscardchoose.ui

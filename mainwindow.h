@@ -13,7 +13,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
     LoginDialog*    pLoginDialog;
-    int             auotSaveTimer;
 
 public:
     static  MainWindow* pWin;
@@ -32,7 +31,6 @@ public slots:
 
 protected:
     void    closeEvent(QCloseEvent *event);
-    void    timerEvent(QTimerEvent *event);
 
 private:
     Ui::MainWindow *ui;

@@ -6,22 +6,14 @@ ShopState*  ShopState::pShop = 0;
 
 ShopState::ShopState()
 {
-    _curCustomer = 0;
-
-    ShopCustomer*   pCustomer = new ShopCustomer;
-    pCustomer->nickname = "Fairon";
-    pCustomer->hash = qHash(QString::fromLatin1("1"));
-    pCustomer->name = "Anton";
-    pCustomer->surname = "Ilyich";
-    pCustomer->family = "Fedoseev";
-    _customers.append(pCustomer);
+    _curSeller = 0;
 }
 
 bool ShopState::login(const QString nikname, const unsigned hash)
 {
-    foreach(ShopCustomer* pCustomer, _customers){
+    foreach(ShopSeller* pCustomer, _sellers){
         if(pCustomer->hash == hash && pCustomer->nickname == nikname){
-            _curCustomer = pCustomer;
+            _curSeller = pCustomer;
             return true;
         }
     }
@@ -31,7 +23,20 @@ bool ShopState::login(const QString nikname, const unsigned hash)
 
 void ShopState::logout()
 {
-    _curCustomer = 0;
+    _curSeller = 0;
+}
+
+ShopSeller *ShopState::addSeller()
+{
+    ShopSeller* pSeller = new ShopSeller;
+    _sellers.append(pSeller);
+    return pSeller;
+}
+
+void ShopState::delSeller(ShopSeller *seller)
+{
+    _sellers.removeOne(seller);
+    delete seller;
 }
 
 void ShopState::apply(QList<ShopItem *> add, QList<ShopItem *> remove, QList<ShopItem *> update)
@@ -49,7 +54,9 @@ void ShopState::apply(QList<ShopItem *> add, QList<ShopItem *> remove, QList<Sho
 
     //add
     foreach(ShopItem* pItem, add){
+        pItem->uid = QUuid::createUuid();
         pItem->added = curDate;
+        pItem->changed = curDate;
     }
     _items.append(add);
 
@@ -67,52 +74,122 @@ void ShopState::apply(QList<ShopItem *> add, QList<ShopItem *> remove, QList<Sho
     }
 }
 
+ShopItem *ShopState::addItem()
+{
+    ShopItem*   item = new ShopItem;
+    item->uid = QUuid::createUuid();
+    _items.append(item);
+    return item;
+}
+
+void ShopState::delItem(ShopItem *item)
+{
+    _items.removeOne(item);
+    delete item;
+}
+
+ShopBonusCard* ShopState::addBonusCard()
+{
+    ShopBonusCard* card = new ShopBonusCard;
+    card->uid = QUuid::createUuid();
+    card->seller = _curSeller->uid;
+    _cards.append(card);
+    return card;
+}
+
+void ShopState::delBonusCard(ShopBonusCard *card)
+{
+    _cards.removeOne(card);
+    delete card;
+}
+
 QByteArray ShopState::save()
 {
     QByteArray  arr;
+    int num;
     QDataStream strm(&arr, QIODevice::WriteOnly);
 
-    int num = _items.count();
+    //shop sellers
+    strm << ss_file_id_sellers;
+    num = _sellers.count();
     strm << num;
-
     for(int n = 0; n<num; ++n){
-        ShopItem* pItem = _items.at(n);
-
-        strm << pItem->code;
-        strm << pItem->name;
-        strm << pItem->count;
-        strm << pItem->discont;
-        strm << pItem->buying_price;
-        strm << pItem->selling_price;
-        strm << pItem->added;
-        strm << pItem->changed;
+        ShopSeller* pItem = _sellers.at(n);
+        pItem->save(strm);
     }
 
+    //shop items
+    strm << ss_file_id_items;
+    num = _items.count();
+    strm << num;
+    for(int n = 0; n<num; ++n){
+        ShopItem* pItem = _items.at(n);
+        pItem->save(strm);
+    }
+
+    //shop cards
+    strm << ss_file_id_cards;
+    num = _cards.count();
+    strm << num;
+    for(int n = 0; n<num; ++n){
+        ShopBonusCard* pCard = _cards.at(n);
+        pCard->save(strm);
+    }
+
+    strm << ss_file_id_none;
     return arr;
 }
 
 void ShopState::load(QByteArray arr)
 {
     _items.clear();
+    _sellers.clear();
+    _cards.clear();
 
+    int     num;
+    quint8  idx;
     QDataStream strm(arr);
 
-    int num = 0;
-    strm >> num;
+    forever{
+        if(strm.atEnd())
+            break;
 
-    for(int n = 0; n<num; ++n){
-        ShopItem* pItem = new ShopItem;
+        strm >> idx;
+        if(idx == ss_file_id_none)
+            break;
 
-        strm >> pItem->code;
-        strm >> pItem->name;
-        strm >> pItem->count;
-        strm >> pItem->discont;
-        strm >> pItem->buying_price;
-        strm >> pItem->selling_price;
-        strm >> pItem->added;
-        strm >> pItem->changed;
+        switch(idx){
+            case ss_file_id_sellers:
+            strm >> num;
+            for(int n = 0; n<num; ++n){
+                ShopSeller* pItem = new ShopSeller;
+                pItem->load(strm);
+                _sellers.append(pItem);
+            }
+            break;
 
-        _items.append(pItem);
+            case ss_file_id_items:
+            strm >> num;
+            for(int n = 0; n<num; ++n){
+                ShopItem* pItem = new ShopItem;
+                pItem->load(strm);
+                _items.append(pItem);
+            }
+            break;
+
+            case ss_file_id_cards:
+            strm >> num;
+            for(int n = 0; n<num; ++n){
+                ShopBonusCard* pItem = new ShopBonusCard;
+                pItem->load(strm);
+                _cards.append(pItem);
+            }
+            break;
+
+            default: break;
+        }
     }
+
+
 }
 

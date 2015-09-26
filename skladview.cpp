@@ -6,6 +6,24 @@
 #include <QLineEdit>
 
 #include "shopstate.h"
+#include "mainwindow.h"
+
+void SkladView::activate()
+{
+    ShopItem* pShopItem;
+    int numItems = ShopState::pShop->items().count();
+    for(int n = 0; n<numItems; ++n){
+        pShopItem = ShopState::pShop->items().at(n);
+        add(pShopItem, false);
+    }
+
+    enumerate();
+}
+
+void SkladView::deactivate()
+{
+    ui->view->clear();
+}
 
 SkladView::SkladView(QWidget *parent) :  QWidget(parent), ui(new Ui::SkladView)
 {
@@ -17,25 +35,6 @@ SkladView::SkladView(QWidget *parent) :  QWidget(parent), ui(new Ui::SkladView)
 SkladView::~SkladView()
 {
     delete ui;
-}
-
-void SkladView::clear()
-{
-     ui->view->clear();
-}
-
-void SkladView::update(ShopState *pShop)
-{
-    clear();
-
-    ShopItem* pShopItem;
-    int numItems = pShop->items().count();
-    for(int n = 0; n<numItems; ++n){
-        pShopItem = pShop->items().at(n);
-        add(pShopItem, false);
-    }
-
-    enumerate();
 }
 
 void SkladView::enumerate()
@@ -80,11 +79,6 @@ void SkladView::add(ShopItem *pItem, const bool isNew)
     ui->view->addTopLevelItem(pTreeItem);
 }
 
-void SkladView::onNew(ShopItem* pItem)
-{
-    add(pItem, true);
-}
-
 void SkladView::onDel()
 {
     QList<QTreeWidgetItem*>     items = ui->view->selectedItems();
@@ -100,6 +94,35 @@ void SkladView::onDel()
                 pItem->setBackgroundColor(n, QColor(255, 200, 200, 255));
         }
     }
+}
+
+void SkladView::onImp()
+{
+
+}
+
+void SkladView::onExp()
+{
+
+}
+
+void SkladView::onSav()
+{
+    QList<ShopItem*>    _toAdd, _toDel, _toChange;
+
+    getItems(_toAdd, _toDel, _toChange);
+    ShopState::pShop->apply(_toAdd, _toDel, _toChange);
+
+    MainWindow::pWin->save();
+
+    deactivate();
+    activate();
+}
+
+void SkladView::onCan()
+{
+    deactivate();
+    activate();
 }
 
 void SkladView::getItems(QList<ShopItem *> &added, QList<ShopItem *> &deleted, QList<ShopItem *> &changed)
@@ -133,6 +156,33 @@ void SkladView::getItems(QList<ShopItem *> &added, QList<ShopItem *> &deleted, Q
             changed.append(pChange);
         }
     }
+}
+
+void SkladView::onChange(QString name)
+{
+    int numItems = ui->view->topLevelItemCount();
+    QTreeWidgetItem* pItem;
+
+    if(name.isEmpty()){
+        for(int n = 0; n<numItems; ++n){
+            pItem = ui->view->topLevelItem(n);
+            pItem->setHidden(false);
+        }
+        return;
+    }
+
+    for(int n = 0; n<numItems; ++n){
+        pItem = ui->view->topLevelItem(n);
+
+        bool isShowItem = pItem->text(sklad_view_code).contains(name) || pItem->text(sklad_view_name).contains(name);
+        pItem->setHidden(!isShowItem);
+    }
+}
+
+void SkladView::onAdd()
+{
+    ShopItem    *pItem = new ShopItem;
+    add(pItem, true);
 }
 
 QWidget *SkladViewEditor::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const

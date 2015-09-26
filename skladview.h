@@ -35,20 +35,28 @@ class SkladView : public QWidget
 {
     Q_OBJECT
 
+    void    enumerate();
+
 public:
     explicit SkladView(QWidget *parent = 0);
     ~SkladView();
 
-    void    clear();
-    void    update(ShopState* pShop);
-    void    enumerate();
+    void    activate();
+    void    deactivate();
 
     void                add(ShopItem* pItem, const bool isNew);
     QList<ShopItem*>    del();
 
-    void    onNew(ShopItem *pItem);
-    void    onDel();
     void    getItems(QList<ShopItem*> &added, QList<ShopItem*> &deleted, QList<ShopItem*> &changed);
+
+public slots:
+    void    onChange(QString name);
+    void    onAdd();
+    void    onDel();
+    void    onImp();
+    void    onExp();
+    void    onSav();
+    void    onCan();
 
 private:
     Ui::SkladView *ui;

@@ -74,8 +74,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),  ui(new Ui::MainW
 
     pLoginDialog = new LoginDialog(this);
     QMetaObject::invokeMethod(this, "onLogout", Qt::QueuedConnection);
-
-    auotSaveTimer = startTimer(10*60*1000);
 }
 
 MainWindow::~MainWindow()
@@ -92,8 +90,8 @@ void MainWindow::onLogout()
        return;
    }
 
-   ShopCustomer* pCust = ShopState::pShop->curCustomer();
-   QString  name = "Druff Shop: " + pCust->name + " " + pCust->surname + " " + pCust->family;
+   ShopSeller* pCust = ShopState::pShop->curCustomer();
+   QString  name = "Druff Shop: " + pCust->name + " " + pCust->surname + " " + pCust->patronymic;
    setWindowTitle(name);
 }
 
@@ -108,21 +106,27 @@ void MainWindow::onTabChange(int toIndex)
     static QWidget*  prevView = 0;
 
     //deactivate
-    TakeInView* pTakeIn = dynamic_cast<TakeInView*>(prevView);
+    SkladView* pTakeIn = dynamic_cast<SkladView*>(prevView);
     if(pTakeIn) pTakeIn->deactivate();
 
     SellingView* pSellingIn = dynamic_cast<SellingView*>(prevView);
     if(pSellingIn) pSellingIn->deactivate();
 
+    BonusCardsView* pCards = dynamic_cast<BonusCardsView*>(prevView);
+    if(pCards) pCards->deactivate();
+
 
     //activate
     QWidget*    pNewView = ui->tabWidget->widget(toIndex);
 
-    pTakeIn = dynamic_cast<TakeInView*>(pNewView);
+    pTakeIn = dynamic_cast<SkladView*>(pNewView);
     if(pTakeIn) pTakeIn->activate();
 
     pSellingIn = dynamic_cast<SellingView*>(pNewView);
     if(pSellingIn) pSellingIn->activate();
+
+    pCards = dynamic_cast<BonusCardsView*>(pNewView);
+        if(pCards) pCards->activate();
 
     prevView = pNewView;
 }
@@ -132,10 +136,4 @@ void MainWindow::closeEvent(QCloseEvent *event)
     save();
 
     QMainWindow::closeEvent(event);
-}
-
-void MainWindow::timerEvent(QTimerEvent *event)
-{
-    if(event->timerId() == auotSaveTimer)
-        save();
 }

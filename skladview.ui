@@ -17,9 +17,61 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QToolButton" name="butAdd">
+       <property name="text">
+        <string>add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butDel">
+       <property name="text">
+        <string>del</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butImp">
+       <property name="text">
+        <string>imp</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butExp">
+       <property name="text">
+        <string>exp</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butCan">
+       <property name="text">
+        <string>can</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butSav">
+       <property name="text">
+        <string>sav</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Filter:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="butClear">
+       <property name="text">
+        <string>clr</string>
        </property>
       </widget>
      </item>
@@ -115,5 +167,143 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>butClear</sender>
+   <signal>clicked()</signal>
+   <receiver>filter</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>500</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filter</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>SkladView</receiver>
+   <slot>onChange(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>500</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butAdd</sender>
+   <signal>clicked()</signal>
+   <receiver>SkladView</receiver>
+   <slot>onAdd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butImp</sender>
+   <signal>clicked()</signal>
+   <receiver>SkladView</receiver>
+   <slot>onImp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>108</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butExp</sender>
+   <signal>clicked()</signal>
+   <receiver>SkladView</receiver>
+   <slot>onExp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>151</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butCan</sender>
+   <signal>clicked()</signal>
+   <receiver>SkladView</receiver>
+   <slot>onCan()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>193</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butDel</sender>
+   <signal>clicked()</signal>
+   <receiver>SkladView</receiver>
+   <slot>onDel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>butSav</sender>
+   <signal>clicked()</signal>
+   <receiver>SkladView</receiver>
+   <slot>onSav()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onChange(QString)</slot>
+  <slot>onAdd()</slot>
+  <slot>onDel()</slot>
+  <slot>onImp()</slot>
+  <slot>onExp()</slot>
+  <slot>onCan()</slot>
+  <slot>onSav()</slot>
+ </slots>
 </ui>

@@ -45,6 +45,9 @@ public slots:
     void    ItemToBasket(QTreeWidgetItem* item, int column);
     void    onClear();
     void    onProcess();
+    void    onChange(QString name);
+    void    onClearCard();
+    void    onSelCard();
 
 private:
     Ui::SellingView *ui;

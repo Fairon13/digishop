@@ -2,6 +2,7 @@
 #include "ui_sellingview.h"
 
 #include "shopstate.h"
+#include "bonuscardchoose.h"
 
 void SellingView::enumBasket()
 {
@@ -97,4 +98,49 @@ void SellingView::onClear()
 void SellingView::onProcess()
 {
 
+}
+
+void SellingView::onChange(QString name)
+{
+    int numItems = ui->view->topLevelItemCount();
+    QTreeWidgetItem* pItem;
+
+    if(name.isEmpty()){
+        for(int n = 0; n<numItems; ++n){
+            pItem = ui->view->topLevelItem(n);
+            pItem->setHidden(false);
+        }
+        return;
+    }
+
+    for(int n = 0; n<numItems; ++n){
+        pItem = ui->view->topLevelItem(n);
+
+        bool isShowItem = pItem->text(sell_view_code).contains(name) || pItem->text(sell_view_name).contains(name);
+        pItem->setHidden(!isShowItem);
+    }
+}
+
+void SellingView::onClearCard()
+{
+    ui->butSelectCard->setText("none");
+    ui->cardValue->clear();
+    ui->cardOwner->clear();
+}
+
+void SellingView::onSelCard()
+{
+    BonusCardChoose*    dialog = new BonusCardChoose(this);
+    if(dialog->exec() == QDialog::Accepted){
+
+        ShopBonusCard*  card = dialog->card();
+        ui->butSelectCard->setText(card->code);
+        ui->cardValue->setText(QString::number(card->value));
+
+        QString name = card->name + " " + card->surname + " " + card->patronymic;
+        ui->cardOwner->setText(name);
+
+    }
+
+    delete dialog;
 }
