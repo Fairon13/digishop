@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),  ui(new Ui::MainW
     pWin = this;
 
     restore();
+    onTabChange(0);
 
     pLoginDialog = new LoginDialog(this);
     QMetaObject::invokeMethod(this, "onLogout", Qt::QueuedConnection);
@@ -115,9 +116,11 @@ void MainWindow::onTabChange(int toIndex)
     BonusCardsView* pCards = dynamic_cast<BonusCardsView*>(prevView);
     if(pCards) pCards->deactivate();
 
+    SellersView* pSellers = dynamic_cast<SellersView*>(prevView);
+    if(pSellers) pSellers->deactivate();
 
     //activate
-    QWidget*    pNewView = ui->tabWidget->widget(toIndex);
+    QWidget*    pNewView = ui->TabView->widget(toIndex);
 
     pTakeIn = dynamic_cast<SkladView*>(pNewView);
     if(pTakeIn) pTakeIn->activate();
@@ -126,7 +129,10 @@ void MainWindow::onTabChange(int toIndex)
     if(pSellingIn) pSellingIn->activate();
 
     pCards = dynamic_cast<BonusCardsView*>(pNewView);
-        if(pCards) pCards->activate();
+    if(pCards) pCards->activate();
+
+    pSellers = dynamic_cast<SellersView*>(pNewView);
+    if(pSellers) pSellers->activate();
 
     prevView = pNewView;
 }

@@ -2,6 +2,7 @@
 #define SELLINGVIEW_H
 
 #include <QWidget>
+#include <QStyledItemDelegate>
 
 #define sell_view_code          0
 #define sell_view_name          1
@@ -26,10 +27,14 @@ class SellingView;
 }
 
 class QTreeWidgetItem;
-
+struct ShopBasket;
+class PayDialog;
 class SellingView : public QWidget
 {
     Q_OBJECT
+
+    PayDialog*      _payDialog;
+    ShopBasket*     _basket;
 
     void    enumBasket();
     void    clearBasket();
@@ -43,6 +48,8 @@ public:
 
 public slots:
     void    ItemToBasket(QTreeWidgetItem* item, int column);
+    void    ItemFromBasket(QTreeWidgetItem* item, int column);
+    void    ItemBasketChange(QTreeWidgetItem* item, int column);
     void    onClear();
     void    onProcess();
     void    onChange(QString name);
@@ -51,6 +58,14 @@ public slots:
 
 private:
     Ui::SellingView *ui;
+};
+
+class   BasketViewEditor : public QStyledItemDelegate
+{
+public:
+    QWidget *	createEditor ( QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    void	setEditorData ( QWidget * editor, const QModelIndex & index ) const;
+    void	setModelData ( QWidget * editor, QAbstractItemModel * model, const QModelIndex & index ) const;
 };
 
 #endif // SELLINGVIEW_H

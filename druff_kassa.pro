@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     bonuscardsview.cpp \
     bonuscarddialog.cpp \
     sellerdialog.cpp \
-    bonuscardchoose.cpp
+    bonuscardchoose.cpp \
+    sellersview.cpp \
+    paydialog.cpp
 
 HEADERS  += mainwindow.h \
     shopstate.h \
@@ -31,7 +33,9 @@ HEADERS  += mainwindow.h \
     bonuscardsview.h \
     bonuscarddialog.h \
     sellerdialog.h \
-    bonuscardchoose.h
+    bonuscardchoose.h \
+    sellersview.h \
+    paydialog.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
@@ -40,4 +44,6 @@ FORMS    += mainwindow.ui \
     bonuscardsview.ui \
     bonuscarddialog.ui \
     sellerdialog.ui \
-    bonuscardchoose.ui
+    bonuscardchoose.ui \
+    sellersview.ui \
+    paydialog.ui

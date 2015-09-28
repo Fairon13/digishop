@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="TabView">
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -33,6 +33,11 @@
       <widget class="BonusCardsView" name="BonusView">
        <attribute name="title">
         <string>Bonus</string>
+       </attribute>
+      </widget>
+      <widget class="SellersView" name="SellerView">
+       <attribute name="title">
+        <string>Sellers</string>
        </attribute>
       </widget>
      </widget>
@@ -99,6 +104,12 @@
    <header>skladview.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>SellersView</class>
+   <extends>QWidget</extends>
+   <header>sellersview.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -151,7 +162,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>tabWidget</sender>
+   <sender>TabView</sender>
    <signal>currentChanged(int)</signal>
    <receiver>MainWindow</receiver>
    <slot>onTabChange(int)</slot>

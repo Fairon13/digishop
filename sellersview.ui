@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SkladView</class>
- <widget class="QWidget" name="SkladView">
+ <class>SellersView</class>
+ <widget class="QWidget" name="SellersView">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>927</width>
-    <height>496</height>
+    <width>679</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,34 +27,6 @@
       <widget class="QToolButton" name="butDel">
        <property name="text">
         <string>del</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="butImp">
-       <property name="text">
-        <string>imp</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="butExp">
-       <property name="text">
-        <string>exp</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="butCan">
-       <property name="text">
-        <string>can</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="butSav">
-       <property name="text">
-        <string>sav</string>
        </property>
       </widget>
      </item>
@@ -82,6 +54,9 @@
    </item>
    <item>
     <widget class="QTreeWidget" name="view">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -97,79 +72,40 @@
      <property name="itemsExpandable">
       <bool>false</bool>
      </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
      <property name="expandsOnDoubleClick">
       <bool>false</bool>
      </property>
      <attribute name="headerDefaultSectionSize">
-      <number>100</number>
-     </attribute>
-     <attribute name="headerMinimumSectionSize">
-      <number>30</number>
-     </attribute>
-     <attribute name="headerStretchLastSection">
-      <bool>false</bool>
+      <number>90</number>
      </attribute>
      <column>
       <property name="text">
-       <string>#</string>
+       <string>Nickname</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Code</string>
+       <string notr="true">Name</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Name</string>
+       <string>Surname</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Count</string>
+       <string>Patronymic</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Sell Price</string>
+       <string>Burthday</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Discont</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Final Price</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Buy Price</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Bonus %</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Bonus Pay</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Free Price</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Last Change</string>
+       <string>Sex</string>
       </property>
      </column>
      <column>
@@ -190,35 +126,19 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
+     <x>144</x>
      <y>21</y>
     </hint>
     <hint type="destinationlabel">
-     <x>500</x>
+     <x>416</x>
      <y>21</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>filter</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>SkladView</receiver>
-   <slot>onChange(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>500</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>butAdd</sender>
    <signal>clicked()</signal>
-   <receiver>SkladView</receiver>
+   <receiver>SellersView</receiver>
    <slot>onAdd()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -226,63 +146,31 @@
      <y>21</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
+     <x>339</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>butImp</sender>
-   <signal>clicked()</signal>
-   <receiver>SkladView</receiver>
-   <slot>onImp()</slot>
+   <sender>filter</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>SellersView</receiver>
+   <slot>onFilter(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>108</x>
+     <x>416</x>
      <y>21</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>butExp</sender>
-   <signal>clicked()</signal>
-   <receiver>SkladView</receiver>
-   <slot>onExp()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>151</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>butCan</sender>
-   <signal>clicked()</signal>
-   <receiver>SkladView</receiver>
-   <slot>onCan()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>193</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
+     <x>339</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>butDel</sender>
    <signal>clicked()</signal>
-   <receiver>SkladView</receiver>
+   <receiver>SellersView</receiver>
    <slot>onDel()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -290,35 +178,32 @@
      <y>21</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
+     <x>339</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>butSav</sender>
-   <signal>clicked()</signal>
-   <receiver>SkladView</receiver>
-   <slot>onSav()</slot>
+   <sender>view</sender>
+   <signal>itemDoubleClicked(QTreeWidgetItem*,int)</signal>
+   <receiver>SellersView</receiver>
+   <slot>onChange(QTreeWidgetItem*,int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>235</x>
-     <y>21</y>
+     <x>339</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>247</y>
+     <x>339</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>onChange(QString)</slot>
+  <slot>onChange(QTreeWidgetItem*,int)</slot>
   <slot>onAdd()</slot>
   <slot>onDel()</slot>
-  <slot>onImp()</slot>
-  <slot>onExp()</slot>
-  <slot>onCan()</slot>
-  <slot>onSav()</slot>
+  <slot>onFilter(QString)</slot>
  </slots>
 </ui>

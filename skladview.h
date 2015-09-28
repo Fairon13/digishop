@@ -19,9 +19,12 @@ class ShopItem;
 #define sklad_view_discont      5
 #define sklad_view_final_price  6
 #define sklad_view_buy_price    7
-#define sklad_view_last_change  8
-#define sklad_view_added        9
-#define sklad_view_total        10
+#define sklad_view_bonus        8
+#define sklad_view_bonus_pay    9
+#define sklad_view_free_price   10
+#define sklad_view_last_change  11
+#define sklad_view_added        12
+#define sklad_view_total        13
 
 #define sklad_view_role_item    Qt::UserRole
 #define sklad_view_role_state   Qt::UserRole + 1

@@ -22,7 +22,7 @@ void BonusCardsView::updateItem(QTreeWidgetItem *pItem, ShopBonusCard *card)
     pItem->setText(bc_view_name, card->name);
     pItem->setText(bc_view_surname, card->surname);
     pItem->setText(bc_view_patronym, card->patronymic);
-    pItem->setText(bc_view_sex, card->sexString());
+    pItem->setText(bc_view_sex, ShopState::sexToString(card->sex));
     pItem->setText(bc_view_bonus, QString::number(card->value));
     pItem->setText(bc_view_burthday, card->burthday.toString());
     pItem->setText(bc_view_emmition, card->emmited.toString());
@@ -80,6 +80,7 @@ void BonusCardsView::onAdd()
     }
 
     pCard->emmited = QDateTime::currentDateTime();
+    pCard->expired = pCard->emmited.addYears(5);
     MainWindow::pWin->save();
 
     addToView(pCard);

@@ -4,6 +4,7 @@
 #include <float.h>
 #include <QDoubleSpinBox>
 #include <QLineEdit>
+#include <QComboBox>
 
 #include "shopstate.h"
 #include "mainwindow.h"
@@ -59,6 +60,9 @@ void SkladView::add(ShopItem *pItem, const bool isNew)
     pTreeItem->setText(sklad_view_sell_price,  QString::number(pItem->selling_price));
     pTreeItem->setText(sklad_view_buy_price,  QString::number(pItem->buying_price));
     pTreeItem->setText(sklad_view_discont,  QString::number(pItem->discont));
+    pTreeItem->setText(sklad_view_bonus,  QString::number(pItem->bonus));
+    pTreeItem->setText(sklad_view_bonus_pay,  ShopState::flagToString(pItem->flags & si_flag_cant_pay_bonus));
+    pTreeItem->setText(sklad_view_free_price,  ShopState::flagToString(pItem->flags & si_flag_free_price));
 
     float   finalPrice = pItem->selling_price*(1. - 0.01*pItem->discont);
     pTreeItem->setText(sklad_view_final_price,  QString::number(finalPrice));
@@ -190,6 +194,7 @@ QWidget *SkladViewEditor::createEditor(QWidget *parent, const QStyleOptionViewIt
     switch(index.column()){
         case    sklad_view_name:
         case    sklad_view_code:
+        case    sklad_view_count:
             return  new QLineEdit(parent);
         case    sklad_view_buy_price:
         case    sklad_view_sell_price:
@@ -199,11 +204,13 @@ QWidget *SkladViewEditor::createEditor(QWidget *parent, const QStyleOptionViewIt
             pEditor->setMaximum(FLT_MAX);
             return pEditor;
         }
-        case    sklad_view_count:
+        case    sklad_view_bonus_pay:
+        case    sklad_view_free_price:
         {
-            QSpinBox*   pEditor = new QSpinBox(parent);
-            pEditor->setMaximum(INT_MAX);
-            return pEditor;
+            QComboBox*  editor = new QComboBox(parent);
+            editor->addItem("No", false);
+            editor->addItem("Yes", true);
+            return  editor;
         }
         default: break;
     }
@@ -216,9 +223,23 @@ void SkladViewEditor::setEditorData(QWidget *editor, const QModelIndex &index) c
     switch(index.column()){
         case    sklad_view_name:
         case    sklad_view_code:
+        case    sklad_view_count:
         {
             QLineEdit*  pEdit = static_cast<QLineEdit*>(editor);
             pEdit->setText(index.data().toString());
+        }
+        break;
+        case    sklad_view_bonus_pay:
+        case    sklad_view_free_price:
+        {
+            QModelIndex idx = index.model()->index(index.row(), sklad_view_num);
+            ShopItem* pItem = (ShopItem*)idx.data(sklad_view_role_item).value<void*>();
+
+            QComboBox*  pEdit = static_cast<QComboBox*>(editor);
+            if(index.column() == sklad_view_bonus_pay)
+                pEdit->setCurrentIndex(pItem->flags & si_flag_cant_pay_bonus ? 1 : 0);
+            else if(index.column() == sklad_view_free_price)
+                pEdit->setCurrentIndex(pItem->flags & si_flag_free_price ? 1 : 0);
         }
         break;
         case    sklad_view_buy_price:
@@ -227,11 +248,6 @@ void SkladViewEditor::setEditorData(QWidget *editor, const QModelIndex &index) c
         {
             QDoubleSpinBox*  pEdit = static_cast<QDoubleSpinBox*>(editor);
             pEdit->setValue(index.data().toDouble());
-        }
-        case    sklad_view_count:
-        {
-            QSpinBox*  pEdit = static_cast<QSpinBox*>(editor);
-            pEdit->setValue(index.data().toInt());
         }
         default: break;
     }
@@ -257,8 +273,25 @@ void SkladViewEditor::setModelData(QWidget *editor, QAbstractItemModel *model, c
         break;
         case    sklad_view_count:
         {
-            QSpinBox*  pEdit = static_cast<QSpinBox*>(editor);
-            model->setData(index, pEdit->value());
+            QLineEdit*  pEdit = static_cast<QLineEdit*>(editor);
+            QString str = pEdit->text();
+            bool ok;
+            int val, idx;
+
+            if(idx = str.indexOf('+') != -1){
+                QString sub = str.mid(idx);
+                val = sub.toInt(&ok);
+                val += index.data().toInt();
+            } else if(idx = str.indexOf('-') != -1){
+                QString sub = str.mid(idx);
+                val = sub.toInt(&ok);
+                val = qMax(index.data().toInt() - val, 0);
+            } else {
+                val = str.toInt(&ok);
+            }
+
+            if(ok)
+                model->setData(index, val);
         }
         break;
         default: break;

@@ -22,16 +22,12 @@ void SellerDialog::setSeller(ShopSeller *pSeller)
     ui->passwordLineEdit->clear();
     ui->patronymicLineEdit->setText(pSeller->patronymic);
     ui->surnameLineEdit->setText(pSeller->surname);
+    ui->sexComboBox->setCurrentIndex(pSeller->sex);
     _seller = pSeller;
 }
 
 void SellerDialog::accept()
 {
-    if(ui->passwordLineEdit->text().isEmpty()){
-        QMessageBox::critical(this, tr("Input error"), tr("Password is empty"));
-        return;
-    }
-
     if(ui->nicknameLineEdit->text().isEmpty()){
         QMessageBox::critical(this, tr("Input error"), tr("Nickname is empty"));
         return;
@@ -42,7 +38,9 @@ void SellerDialog::accept()
     _seller->patronymic = ui->patronymicLineEdit->text();
     _seller->nickname = ui->nicknameLineEdit->text();
     _seller->burthday = ui->burthdayDateEdit->date();
-    _seller->hash = qHash(ui->passwordLineEdit->text());
+    _seller->sex = ui->sexComboBox->currentIndex();
+    if(!ui->passwordLineEdit->text().isEmpty())
+        _seller->hash = qHash(ui->passwordLineEdit->text());
 
     QDialog::accept();
 }

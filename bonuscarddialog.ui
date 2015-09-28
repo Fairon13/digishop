@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>377</width>
+    <width>335</width>
     <height>279</height>
    </rect>
   </property>
@@ -25,117 +25,113 @@
   <property name="windowTitle">
    <string>Bonus card</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="codeLabel">
-       <property name="text">
-        <string>Code</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="codeLineEdit"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="nameLabel">
-       <property name="text">
-        <string>Name</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="nameLineEdit"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="surnameLabel">
-       <property name="text">
-        <string>Surname</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="surnameLineEdit"/>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="patronumicLabel">
-       <property name="text">
-        <string>Patronumic</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="patronumicLineEdit"/>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="sexLabel">
-       <property name="text">
-        <string>Sex</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QComboBox" name="sexComboBox">
-       <item>
-        <property name="text">
-         <string>Male</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Female</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="burthdayLabel">
-       <property name="text">
-        <string>Burthday</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QDateEdit" name="burthdayDateEdit">
-       <property name="displayFormat">
-        <string>dd.MM.yyyy</string>
-       </property>
-       <property name="calendarPopup">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="bonusesLabel">
-       <property name="text">
-        <string>Bonuses</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QDoubleSpinBox" name="bonusesDoubleSpinBox"/>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="expiredLabel">
-       <property name="text">
-        <string>Expired</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QDateTimeEdit" name="expiredDateTimeEdit">
-       <property name="displayFormat">
-        <string>dd.MM.yyyy H:mm</string>
-       </property>
-       <property name="calendarPopup">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="codeLabel">
+     <property name="text">
+      <string>Code</string>
+     </property>
+    </widget>
    </item>
-   <item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="codeLineEdit"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="nameLabel">
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="nameLineEdit"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="surnameLabel">
+     <property name="text">
+      <string>Surname</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="surnameLineEdit"/>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="patronumicLabel">
+     <property name="text">
+      <string>Patronumic</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QLineEdit" name="patronumicLineEdit"/>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="sexLabel">
+     <property name="text">
+      <string>Sex</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QComboBox" name="sexComboBox">
+     <item>
+      <property name="text">
+       <string>Male</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Female</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="burthdayLabel">
+     <property name="text">
+      <string>Burthday</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QDateEdit" name="burthdayDateEdit">
+     <property name="displayFormat">
+      <string>dd.MM.yyyy</string>
+     </property>
+     <property name="calendarPopup">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="0">
+    <widget class="QLabel" name="bonusesLabel">
+     <property name="text">
+      <string>Bonuses</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="1">
+    <widget class="QLineEdit" name="bonusesEdit"/>
+   </item>
+   <item row="13" column="0">
+    <widget class="QLabel" name="expiredLabel">
+     <property name="text">
+      <string>Expired</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="1">
+    <widget class="QDateTimeEdit" name="expiredDateTimeEdit">
+     <property name="displayFormat">
+      <string>dd.MM.yyyy H:mm</string>
+     </property>
+     <property name="calendarPopup">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

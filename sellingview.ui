@@ -304,6 +304,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <weight>75</weight>
@@ -330,6 +336,12 @@
          </item>
          <item>
           <widget class="QLabel" name="label_5">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <weight>75</weight>
@@ -356,6 +368,12 @@
          </item>
          <item>
           <widget class="QLabel" name="label_4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <weight>75</weight>
@@ -382,6 +400,12 @@
          </item>
          <item>
           <widget class="QLabel" name="label_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <weight>75</weight>
@@ -542,6 +566,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>basket</sender>
+   <signal>itemDoubleClicked(QTreeWidgetItem*,int)</signal>
+   <receiver>SellingView</receiver>
+   <slot>ItemFromBasket(QTreeWidgetItem*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>475</x>
+     <y>414</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>471</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>basket</sender>
+   <signal>itemChanged(QTreeWidgetItem*,int)</signal>
+   <receiver>SellingView</receiver>
+   <slot>ItemBasketChange(QTreeWidgetItem*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>475</x>
+     <y>414</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>471</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ItemToBasket(QTreeWidgetItem*,int)</slot>
@@ -550,5 +606,7 @@
   <slot>onChange(QString)</slot>
   <slot>onClearCard()</slot>
   <slot>onSelCard()</slot>
+  <slot>ItemFromBasket(QTreeWidgetItem*,int)</slot>
+  <slot>ItemBasketChange(QTreeWidgetItem*,int)</slot>
  </slots>
 </ui>

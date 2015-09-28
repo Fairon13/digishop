@@ -23,7 +23,7 @@ void BonusCardDialog::setBonusCard(ShopBonusCard *pCard)
     ui->patronumicLineEdit->setText(pCard->patronymic);
     ui->sexComboBox->setCurrentIndex(pCard->sex);
     ui->burthdayDateEdit->setDate(pCard->burthday);
-    ui->bonusesDoubleSpinBox->setValue(pCard->value);
+    ui->bonusesEdit->setText(QString::number(pCard->value));
     ui->expiredDateTimeEdit->setDateTime(pCard->expired);
 }
 
@@ -35,7 +35,7 @@ void BonusCardDialog::accept()
     _card->patronymic = ui->patronumicLineEdit->text();
     _card->sex = ui->sexComboBox->currentIndex();
     _card->burthday = ui->burthdayDateEdit->date();
-    _card->value = ui->bonusesDoubleSpinBox->value();
+    _card->value = ui->bonusesEdit->text().toFloat();
     _card->expired = ui->expiredDateTimeEdit->dateTime();
 
     QDialog::accept();

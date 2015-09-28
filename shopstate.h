@@ -9,6 +9,10 @@
 #include <QDataStream>
 #include <QUuid>
 
+#define ss_sex_male    0
+#define ss_sex_female  1
+
+
 #define ss_file_id_none     quint8(0)
 #define ss_file_id_sellers  quint8(1)
 #define ss_file_id_items    quint8(2)
@@ -23,6 +27,12 @@ struct ShopSeller {
     QDate       burthday;
     QDateTime   created;
     unsigned    hash;
+    quint8      sex;
+
+    ShopSeller(){
+        hash = 0;
+        sex = ss_sex_male;
+    }
 
     void save(QDataStream &strm){
         strm << uid;
@@ -33,6 +43,7 @@ struct ShopSeller {
         strm << burthday;
         strm << created;
         strm << hash;
+        strm << sex;
     }
 
     void load(QDataStream &strm){
@@ -44,8 +55,12 @@ struct ShopSeller {
         strm >> burthday;
         strm >> created;
         strm >> hash;
+        strm >> sex;
     }
 };
+
+#define si_flag_cant_pay_bonus  1
+#define si_flag_free_price      2
 
 struct ShopItem {
     QUuid       uid;
@@ -57,14 +72,18 @@ struct ShopItem {
     float       buying_price;
     float       selling_price;
     float       discont;
+    float       bonus;
     int         count;
+    int         flags;
 
     ShopItem() {
         original = 0;
-        buying_price = 0.;
-        selling_price = 0.;
-        discont = 0.;
+        buying_price = 0.f;
+        selling_price = 0.f;
+        discont = 0.f;
+        bonus = 0.f;
         count = 0;
+        flags = 0;
     }
 
     void save(QDataStream &strm){
@@ -77,6 +96,8 @@ struct ShopItem {
         strm << selling_price;
         strm << discont;
         strm << count;
+        strm << bonus;
+        strm << flags;
     }
 
     void load(QDataStream &strm){
@@ -89,6 +110,8 @@ struct ShopItem {
         strm >> selling_price;
         strm >> discont;
         strm >> count;
+        strm >> bonus;
+        strm >> flags;
     }
 };
 
@@ -98,9 +121,6 @@ struct ShopUnit {
     QList<int>          counts;
     float               selling_price;
 };
-
-#define sbc_sex_male    0
-#define sbc_sex_female  1
 
 struct  ShopBonusCard {
     QUuid       uid;
@@ -117,17 +137,7 @@ struct  ShopBonusCard {
 
     ShopBonusCard(){
         value = 0.;
-        sex = sbc_sex_male;
-    }
-
-    QString   sexString(){
-        if(sex == sbc_sex_male)
-            return "Male";
-
-        if(sex == sbc_sex_female)
-            return "Female";
-
-        return "N/A";
+        sex = ss_sex_female;
     }
 
     void    save(QDataStream &strm){
@@ -159,7 +169,8 @@ struct  ShopBonusCard {
     }
 };
 
-struct ShopBusket {
+struct ShopBasket {
+    QUuid            uid;
     QList<ShopItem*> items;
     QDateTime        created;
     QDateTime        closed;
@@ -173,7 +184,7 @@ class ShopState
     QList<ShopUnit*>        _units;
     QList<ShopSeller*>      _sellers;
     QList<ShopBonusCard*>   _cards;
-    QList<ShopBusket*>      _buskets;
+    QList<ShopBasket*>      _buskets;
 
     ShopSeller*         _curSeller;
 
@@ -202,6 +213,23 @@ public:
 
     QByteArray      save();
     void            load(QByteArray arr);
+
+    static  QString sexToString(const quint8 sex){
+        if(sex == ss_sex_male)
+            return "Male";
+
+        if(sex == ss_sex_female)
+            return "Female";
+
+        return "N/A";
+    }
+
+    static  QString flagToString(const bool flag){
+        if(flag)
+            return "Yes";
+
+        return "No";
+    }
 };
 
 #endif // SHOPSTATE_H
